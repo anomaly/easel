@@ -12,28 +12,28 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
  */
 exports.handler = async (event) => {
 
-    const { user } = JSON.parse(event.body);
+  const { user } = JSON.parse(event.body);
 
-    // Create a new Stripe customer, with the Netlify user ID 
-    // stored in the Metdata, Stripe passes this back whenever
-    // It calls the webhook
-    const customer = await stripe.customers.create({ 
-        email: user.email,
-        metadata: {
-            userId: user.id
-        }
-    });
+  // Create a new Stripe customer, with the Netlify user ID 
+  // stored in the Metdata, Stripe passes this back whenever
+  // It calls the webhook
+  const customer = await stripe.customers.create({ 
+    email: user.email,
+    metadata: {
+      userId: user.id
+    }
+  });
 
-    // On success, return the Stripe customer ID
-    // to be stored in the app_metadata
-    return {
-        statusCode: 200,
-        body: JSON.stringify({
-          app_metadata: {
-            roles: [],
-            stripeId: customer.id,
-          },
-        }),
-    };
+  // On success, return the Stripe customer ID
+  // to be stored in the app_metadata
+  return {
+    statusCode: 200,
+    body: JSON.stringify({
+      app_metadata: {
+        roles: [],
+        stripeId: customer.id,
+      },
+    }),
+  };
 
 };
