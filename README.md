@@ -1,6 +1,8 @@
 # Easel - Netlify based subscriber content
 > A tiny set of scripts that allow you to make your own subscriber site with Netlify.
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/9dc75eb5-dca6-4d0a-ba1e-90111e070764/deploy-status)](https://app.netlify.com/sites/melodious-kitsune-56de31/deploys)
+
 This repository provide a template that allows you to build subscriber or paid content sites with Netlify. It's aimed at people wanting to provide premium content unlocked with one of charges or subscriptions. You will need to be somewhat handson to get this to work (hopefully not too much, as I have tried to distill the information you need from the various docs).
 
 The crux of the setup is a:
@@ -26,7 +28,7 @@ Features:
 
 If you are interested in how the template is designed, please look at [DESIGN.md](DESIGN.md).
 
-> To see a working version (using Stripe's test mode) head to (easel.fun)[https://easel.fun], it was cheapest domain available when I was working on this template 😀
+> To see a working version (using Stripe's test mode) head to [easel.fun](https://easel.fun), it was cheapest domain available when I was working on this template 😀
 
 ## Workflow
 
