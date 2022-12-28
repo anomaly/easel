@@ -22,10 +22,33 @@ To support this work, I decided to make portions of it as paid content. To help 
 
 In spirit of sharing as much knowledge as we possibly can, the template is free to use, modify and share for commercial and non-commercial purposes.
 
+
+## Deploy the site to Netlify
+
+You can simply drop the contents of this repository into a new Netlify site, however we encourage a `git` based workflow.
+
+`netlify init`
+
 ## User Accounts
+
+First enable Netlify identity, head to the site on Netlify:
+- Site Settings
+- Identity
+- Click the "Enable Identity" button
+
+We use the [Netlify Identity Widget](https://github.com/netlify/netlify-identity-widget) to present the authentication lifecycle. There's a fantastic article that describes this feature, [Integrating Netlify Identity into your Next.js apps](https://www.netlify.com/blog/2020/07/15/integrating-netlify-identity-into-your-next.js-apps/) by [Cassidy Williams](https://twitter.com/cassidoo), however we will go through the particulars of our setup.
+
+Start by adding the package:
+```sh
+yarn add netlify-identity-widget
+```
+> If you are using this template you won't have to do this as it's already included
+
+
 
 
 
 # Resources
 
-The design is heavily influenced by a [blog post](https://www.netlify.com/blog/2020/07/13/manage-subscriptions-and-protect-content-with-stripe/#display-content-based-on-user-roles) and a live stream video that [Jason Lengstorf](https://www.learnwithjason.dev/) and [Thor](https://thorweb.dev) put together, to deploy a similar solution on Netlify. You can find their code on this [Github repository](https://github.com/stripe-samples/netlify-stripe-subscriptions). A review of this was referencd in Issue #1.
+The design is heavily influenced by a [blog post](https://www.netlify.com/blog/2020/07/13/manage-subscriptions-and-protect-content-with-stripe/#display-content-based-on-user-roles) and a live stream video that [Jason Lengstorf](https://www.learnwithjason.dev/) and [Thor](https://thorweb.dev) put together, to deploy a similar solution on Netlify. You can find their code on this [Github repository](https://github.com/stripe-samples/netlify-stripe-subscriptions). A review of this was referenced in Issue #1.
+
