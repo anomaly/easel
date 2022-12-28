@@ -44,8 +44,6 @@ If you are interested in how the template is designed, please look at [DESIGN.md
 ## How to use this template
 
 
-## Supporting our work
-If you feel like you have found this template useful or are using this to make [donation]() to support maintaining this template.
 
 ## License
 Easel is distributed under the MIT license.

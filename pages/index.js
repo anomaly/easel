@@ -15,10 +15,17 @@ export default function Home() {
   let [user, setUser] = useState(null)
 
   useEffect(() => {
+    let isCurrent = true
     netlifyAuth.initialize((user) => {
-      setLoggedIn(!!user)
+      if (isCurrent) {
+        setLoggedIn(!!user)
+      }
     })
-  }, [loggedIn])
+
+    return () => {
+      isCurrent = false
+    }
+  }, [])
 
   let login = () => {
     netlifyAuth.authenticate((user) => {
