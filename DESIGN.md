@@ -45,7 +45,7 @@ yarn add netlify-identity-widget
 > If you are using this template you won't have to do this as it's already included
 
 
-
+https://github.com/netlify/identity-update-user-data
 
 
 # Resources
