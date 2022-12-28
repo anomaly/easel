@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 
+import Header from '@components/Header'
 import netlifyAuth from '../netlifyAuth.js'
 
 export default function Home() {
@@ -44,6 +45,7 @@ export default function Home() {
 
   return (
     <div>
+      <Header/>
       <h1>Hello world</h1>
       {loggedIn ? (
         <div>
