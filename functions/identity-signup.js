@@ -22,7 +22,7 @@ exports.handler = async (event) => {
   // stored in the Metdata, Stripe passes this back whenever
   // It calls the webhook
   const customer = await stripe.customers.create({ 
-    name: user.name,
+    name: user.user_metadata.full_name,
     email: user.email,
     metadata: {
       userId: user.id
