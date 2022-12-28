@@ -100,6 +100,8 @@ return {
 };
 ```
 
+The Netlify interface will not show the additional fields (it does show the `role` field), but you can see them in the API calls as they proceed.
+
 > Note that the `identity-signup` does not fire for Social logins, so we will address this at a later stage.
 
 # Resources
