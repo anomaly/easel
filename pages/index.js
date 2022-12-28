@@ -1,44 +1,48 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react';
 
-import Head from 'next/head'
-import Image from 'next/image'
+import Head from 'next/head';
+import Image from 'next/image';
 
-import Header from '@components/Header'
-import netlifyAuth from '../netlifyAuth.js'
+import Header from '@components/Header';
+import netlifyAuth from '../netlifyAuth.js';
 
 export default function Home() {
 
   let [
     loggedIn, 
     setLoggedIn
-  ] = useState(netlifyAuth.isAuthenticated)
+  ] = useState(netlifyAuth.isAuthenticated);
 
-  let [user, setUser] = useState(null)
+  let [
+    user,
+    setUser
+  ] = useState(null);
 
   useEffect(() => {
-    let isCurrent = true
+    let isCurrent = true;
     netlifyAuth.initialize((user) => {
       if (isCurrent) {
-        setLoggedIn(!!user)
+        setLoggedIn(!!user);
       }
     })
 
     return () => {
-      isCurrent = false
+      isCurrent = false;
     }
-  }, [])
+  }, []);
 
   let login = () => {
     netlifyAuth.authenticate((user) => {
-      setLoggedIn(!!user)
-      setUser(user)
+      setLoggedIn(!!user);
+      setUser(user);
+      console.log(user);
     })
   }
   
   let logout = () => {
     netlifyAuth.signout(() => {
-      setLoggedIn(false)
-      setUser(null)
+      setLoggedIn(false);
+      setUser(null);
     })
   }
 
