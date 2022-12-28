@@ -26,6 +26,8 @@ Features:
 
 If you are interested in how the template is designed, please look at [DESIGN.md](DESIGN.md).
 
+> To see a working version (using Stripe's test mode) head to (easel.fun)[https://easel.fun], it was cheapest domain available when I was working on this template 😀
+
 ## Workflow
 
 - Enable Netlify identity
