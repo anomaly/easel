@@ -31,7 +31,7 @@ export default function Home() {
     }
   }, []);
 
-  let login = () => {
+  const login = () => {
     netlifyAuth.authenticate((user) => {
       setLoggedIn(!!user);
       setUser(user);
@@ -39,10 +39,23 @@ export default function Home() {
     })
   }
   
-  let logout = () => {
+  const logout = () => {
     netlifyAuth.signout(() => {
       setLoggedIn(false);
       setUser(null);
+    })
+  }
+
+  const redirectToPortal = () => {
+    fetch('/.netlify/functions/create-portal-link', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${user.token.access_token}`,
+      }
+    }).then(
+      response => response.json()
+    ).then((linkJson) => {
+      window.location.href = linkJson.url;
     })
   }
 
@@ -57,6 +70,9 @@ export default function Home() {
         <br /> 
         <button onClick={logout}>
           Log out here.
+        </button>
+        <button onClick={redirectToPortal}>
+          Go to your portal.
         </button>
         </div>
       ) : (

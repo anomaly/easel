@@ -1,10 +1,11 @@
-const fetch = require('node-fetch');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
 
-const getNetlifyUser = (netlifyId) => {
+const getNetlifyUser = async (netlifyId) => {
 }
 
 exports.handler = async ({ body, headers }, context) => {
+
+  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
   try {
 
