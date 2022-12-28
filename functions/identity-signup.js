@@ -22,22 +22,27 @@ exports.handler = async (event) => {
   // stored in the Metdata, Stripe passes this back whenever
   // It calls the webhook
   const customer = await stripe.customers.create({ 
+    name: user.name,
     email: user.email,
     metadata: {
       userId: user.id
     }
   });
 
+  // This is the default state of the user's metadata
+  // which will contain the Stripe Id and a free role
+  const responseBody = {
+    app_metadata: {
+      roles: ['free'],
+      stripeId: customer.id,
+    },
+  };
+
   // On success, return the Stripe customer ID
   // to be stored in the app_metadata
   return {
     statusCode: 200,
-    body: JSON.stringify({
-      app_metadata: {
-        roles: [],
-        stripeId: customer.id,
-      },
-    }),
+    body: JSON.stringify(responseBody),
   };
 
 };
