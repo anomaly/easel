@@ -1,4 +1,4 @@
-const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+import Stripe from 'stripe';
 
 /**
  * On identity signup, create a new Stripe customer
@@ -11,6 +11,10 @@ const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
  * @returns {object}
  */
 exports.handler = async (event) => {
+
+  // Initialise the Stripe client, this would generally be done
+  // TODO: attempt to convert this into a singleton
+  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
   const { user } = JSON.parse(event.body);
 
