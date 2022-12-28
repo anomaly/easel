@@ -44,9 +44,63 @@ yarn add netlify-identity-widget
 ```
 > If you are using this template you won't have to do this as it's already included
 
+If you look over at `netlifyAuth.js` you will find a code extract from Cassidy's article. It literally provides a wrapper to call functions from the widget library and provide some contextual information like the user itself.
 
-https://github.com/netlify/identity-update-user-data
+> The original example does make a reference to `netlifyAuth.closeModal()` which I think might be in error
 
+Once configured it's a matter of calling the `initialize` on page load, and then `authenticate` and `signout` where appropriate. An example of a `login` event handler would look like:
+
+```js
+let login = () => {
+    netlifyAuth.authenticate((user) => {
+        setLoggedIn(!!user);
+        setUser(user);
+        console.log(user);
+    })
+}
+```
+### Provisioning the Customer on Stripe
+
+The trick here is to provision a user in Stripe when someone signs up and be able to reference their account on subsequent events. The examples you will find around the web use databases like Fauna to keep a map between the Netlify user and Stripe user. I [found that Netlify Identity](https://github.com/netlify/identity-update-user-data) has two metadata fields:
+
+- `user_metadata`, which is insecure and can be updated on the client side, which is appropriate for say the user's full name
+- `app_metadata`, which is secure and can only be updated on the server side, which is appropriate for say the user's Stripe customer ID or Roles.
+
+Stripe also has the idea of storing `metadata` against almost everything that you create. When designing apps I have always use this to our advantage. For example, when creating a customer in Stripe, I will store the Netlify user ID in the `metadata` field. This allows me to easily find the Stripe customer when I need to update their subscription.
+
+Netlify will fire the `identity-signup` event when the user sign's up, so in there we, create a Stripe Customer and hand it the Netlify ID
+
+```js
+const customer = await stripe.customers.create({ 
+    name: user.user_metadata.full_name,
+    email: user.email,
+    metadata: {
+        userId: user.id
+    }
+});
+```
+
+and upon Stripe responding to us, we return a response body from the function with the updated `app_metadata` field:
+
+```js
+// This is the default state of the user's metadata
+// which will contain the Stripe Id and a free role
+const responseBody = {
+    app_metadata: {
+        roles: ['free'],
+        stripeId: customer.id,
+    },
+};
+
+// On success, return the Stripe customer ID
+// to be stored in the app_metadata
+return {
+    statusCode: 200,
+    body: JSON.stringify(responseBody),
+};
+```
+
+> Note that the `identity-signup` does not fire for Social logins, so we will address this at a later stage.
 
 # Resources
 

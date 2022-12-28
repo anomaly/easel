@@ -1,3 +1,10 @@
+/***
+ * Wrapper to make things easier to access and return userful
+ * objects like the logged in user.
+ * 
+ * Based on the work of Cassidy Williams from the blog post
+ * https://bit.ly/3GwGx5L
+ */
 import netlifyIdentity from 'netlify-identity-widget'
 
 const netlifyAuth = {
