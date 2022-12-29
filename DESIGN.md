@@ -104,7 +104,22 @@ The Netlify interface will not show the additional fields (it does show the `rol
 
 > Note that the `identity-signup` does not fire for Social logins, so we will address this at a later stage.
 
-# Resources
+## Billing Portal
+
+Head to https://dashboard.stripe.com/test/settings/billing/portal
+
+## Webhooks
+
+`/.netlify/functions/stripe-webhook`
+
+### Stripe CLI
+
+
+## Limitations
+
+All products from your Stripe portal are shown, in case you share this with other projects.
+
+## Resources
 
 The design is heavily influenced by a [blog post](https://www.netlify.com/blog/2020/07/13/manage-subscriptions-and-protect-content-with-stripe/#display-content-based-on-user-roles) and a live stream video that [Jason Lengstorf](https://www.learnwithjason.dev/) and [Thor](https://thorweb.dev) put together, to deploy a similar solution on Netlify. You can find their code on this [Github repository](https://github.com/stripe-samples/netlify-stripe-subscriptions). A review of this was referenced in Issue #1.
 

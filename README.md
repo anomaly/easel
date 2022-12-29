@@ -43,6 +43,11 @@ If you are interested in how the template is designed, please look at [DESIGN.md
 
 ## How to use this template
 
+First you need fork, clone or copy the content of this repository and preferably host it on a service.
+
+Open `package.json` and update the `name` and `version` number attribute.
+
+
 
 
 ## License
