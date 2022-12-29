@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "/paid"
+  status = 200
+  conditions = {Role = ["plan1"]}
+  force = true
