@@ -1,11 +1,9 @@
-import Stripe from 'stripe';
+import stripe from './utils'
 
 const getNetlifyUser = async (netlifyId) => {
 }
 
 exports.handler = async ({ body, headers }, context) => {
-
-  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 
   try {
 
@@ -19,7 +17,7 @@ exports.handler = async ({ body, headers }, context) => {
     );
     
     switch (stripeEvent.type) {
-      case 'payment_intent.succeeded':
+      case 'customer.subscription.updated':
         const paymentIntent = stripeEvent.data.object;
         break;
       default:

@@ -1,4 +1,4 @@
-import Stripe from 'stripe';
+import stripe from './utils'
 
 /**
  * On identity signup, create a new Stripe customer
@@ -12,10 +12,6 @@ import Stripe from 'stripe';
  */
 exports.handler = async (event) => {
 
-  // Initialise the Stripe client, this would generally be done
-  // TODO: attempt to convert this into a singleton
-  const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
-
   const { user } = JSON.parse(event.body);
 
   // Create a new Stripe customer, with the Netlify user ID 
@@ -25,7 +21,7 @@ exports.handler = async (event) => {
     name: user.user_metadata.full_name,
     email: user.email,
     metadata: {
-      userId: user.id
+      netlifyUserId: user.id
     }
   });
 

@@ -1,15 +1,15 @@
-import Stripe from 'stripe';
-
+import stripe from './utils'
 
 exports.handler = async (_event, context) => {
 
-    const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
     const { user } = context.clientContext;
 
     const link = await stripe.billingPortal.sessions.create({
         customer: user.app_metadata.stripeId,
         return_url: process.env.URL,
     });
+
+    // TODO: error handling, Stripe won't allow us to create init is complete
 
     const responseBody = { 
         url: link.url 
