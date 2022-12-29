@@ -1,0 +1,2 @@
+/paid/*	/paid/:splat	200!	Role=admin
+/paid/*	/login	401!
