@@ -16,13 +16,13 @@ Alongside we provide Netlify functions that work with Stripe to accept payments 
 Before you get started you will need:
 
 - [ ] Github or Gitlab account
-- [ ] A [Netlify](https://netlify.com) account
-- [ ] A [Stripe](https://stripe.com) account
+- [ ] [Netlify](https://netlify.com) account
+- [ ] [Stripe](https://stripe.com) account
 
 Features:
 - Allow users to sign up and manage their account
 - Allow users to view / manage their purchases subscriptions
-- Basic structure of subscription and paid content using `netlify.toml`
+- Basic structure of subscription and paid content using `_redirects`
 - Instructions on how to use the template
 - Command Line Interface based examples to automate actions
 
@@ -39,13 +39,12 @@ If you are interested in how the template is designed, please look at [DESIGN.md
 - Setup your plans and prices
 - Setup rules on your site
 
-## Functions
 
 ## How to use this template
 
 First you need fork, clone or copy the content of this repository and preferably host it on a service.
 
-Open `package.json` and update the `name` and `version` number attribute.
+Open `package.json` and update the `name` and `version` number attributes, appropriate to your project.
 
 
 

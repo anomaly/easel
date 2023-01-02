@@ -112,12 +112,21 @@ Head to https://dashboard.stripe.com/test/settings/billing/portal
 
 `/.netlify/functions/stripe-webhook`
 
+
+## Netlify Lambda Functions
+
+- `identity-signup.js`, this is a special function that executes when a user signs up. It will create a customer in Stripe and store the customer ID in the user's metadata.
+- `stripe-webhook.js`
+- `create-portal-link.js`
+
 ### Stripe CLI
 
 
 ## Limitations
 
-All products from your Stripe portal are shown, in case you share this with other projects.
+Stripe allows you to pick the products and plans that are shown in the hosted Billing Portal. If you are sharing the Stripe account across projects then you will be restricted to using the Billing Portal for this purpose only.
+
+Opening a new Stripe account is not difficult and Stripe may allow multiple hosted portals into the future.
 
 ## Resources
 
