@@ -1,4 +1,4 @@
-import stripe from './utils'
+import stripe from './utils/stripe'
 
 /**
  * On identity signup, create a new Stripe customer

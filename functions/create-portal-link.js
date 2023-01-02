@@ -1,4 +1,4 @@
-import stripe from './utils'
+import stripe from './utils/stripe'
 
 exports.handler = async (_event, context) => {
 
