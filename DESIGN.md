@@ -121,6 +121,17 @@ Head to https://dashboard.stripe.com/test/settings/billing/portal
 
 ### Stripe CLI
 
+[Stripe CLI](https://stripe.com/docs/stripe-cli) amongst other things allows your proxy webhook requests during development, saving you a heap of pain in setting this up via third party services.
+
+Once you've installed the CLI, you need to authenticate yourself against the appropriate Stripe account. You can do this by running:
+
+```sh
+stripe login
+```
+
+once you have authenticated, the CLI will output the webhook secret you are going to use during development.
+
+
 
 ## Limitations
 

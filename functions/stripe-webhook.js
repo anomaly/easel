@@ -3,6 +3,9 @@ import stripe from './utils/stripe'
 const getNetlifyUser = async (netlifyId) => {
 }
 
+const updateUserRoles = async(netlifyId, roles) => {
+}
+
 exports.handler = async ({ body, headers }, context) => {
 
   try {
@@ -35,7 +38,7 @@ exports.handler = async ({ body, headers }, context) => {
 
   }
   catch (err) {
-    // This will make Stripe retry at a later time.
+    // This will make Stripe retry this request
     return {
       statusCode: 400,
       body: `Webhook Error: ${err.message}`,
