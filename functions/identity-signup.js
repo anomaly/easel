@@ -10,14 +10,14 @@ import stripe from './utils/stripe'
  * @param {object} event 
  * @returns {object}
  */
-exports.handler = async (event) => {
+exports.handler = async (event, context) => {
 
-  const { user } = JSON.parse(event.body);
+  const { identity, user } = context.clientContext;
 
   // Create a new Stripe customer, with the Netlify user ID 
   // stored in the Metdata, Stripe passes this back whenever
   // It calls the webhook
-  const customer = await stripe.customers.create({ 
+  const customer = await stripe.customers.create({
     name: user.user_metadata.full_name,
     email: user.email,
     metadata: {
