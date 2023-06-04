@@ -36,7 +36,7 @@ const handler: Handler = async function (
   //
   // This little trick negates the need for a database
   const createCustomerParams: Stripe.CustomerCreateParams = {
-    name: user.user_metadata.full_name,
+    name: user.metadata.full_name,
     email: user.email,
     metadata: {
       netlifyUserId: user.id
