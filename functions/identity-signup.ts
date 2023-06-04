@@ -20,14 +20,9 @@ import type {
  */
 const handler: Handler = async function (
   event: HandlerEvent,
-  context: HandlerContext
 ) {
-  const {
-    identity,
-    user
-  } = context.clientContext;
 
-  console.log(identity, user);
+  const user = JSON.parse(event.body).user;
 
   // Parameters for creating a customer in Stripe
   // Note: that we are sending the ID from the Netlify
@@ -38,7 +33,7 @@ const handler: Handler = async function (
   //
   // This little trick negates the need for a database
   const createCustomerParams: Stripe.CustomerCreateParams = {
-    name: "Dev M",
+    name: user.metadata.full_name,
     email: user.email,
     metadata: {
       netlifyUserId: user.id
@@ -55,7 +50,9 @@ const handler: Handler = async function (
   );
 
   const attributesToUpdate: Object = {
+    ...user,
     app_metadata: {
+      ...user.app_metadata,
       roles: ['free'],
       stripeId: customer.id,
     },
@@ -72,4 +69,4 @@ const handler: Handler = async function (
 
 };
 
-export { handler };
+export default handler;
