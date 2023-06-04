@@ -27,6 +27,8 @@ const handler: Handler = async function (
     user
   } = context.clientContext;
 
+  console.log(identity, user);
+
   // Parameters for creating a customer in Stripe
   // Note: that we are sending the ID from the Netlify
   // user to the Stripe customer as metadata
@@ -36,7 +38,7 @@ const handler: Handler = async function (
   //
   // This little trick negates the need for a database
   const createCustomerParams: Stripe.CustomerCreateParams = {
-    name: user.metadata.full_name,
+    name: "Dev M",
     email: user.email,
     metadata: {
       netlifyUserId: user.id
