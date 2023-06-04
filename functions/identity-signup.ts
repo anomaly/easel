@@ -1,4 +1,12 @@
 import stripe from './utils/stripe'
+import Stripe from 'stripe';
+
+import type {
+  Handler,
+  HandlerEvent,
+  HandlerContext,
+  HandlerResponse,
+} from "@netlify/functions";
 
 /**
  * On identity signup, create a new Stripe customer
@@ -10,35 +18,56 @@ import stripe from './utils/stripe'
  * @param {object} event 
  * @returns {object}
  */
-exports.handler = async (event, context) => {
+const handler: Handler = async function (
+  event: HandlerEvent,
+  context: HandlerContext
+) {
+  const {
+    identity,
+    user
+  } = context.clientContext;
 
-  const { identity, user } = context.clientContext;
-
-  // Create a new Stripe customer, with the Netlify user ID 
-  // stored in the Metdata, Stripe passes this back whenever
-  // It calls the webhook
-  const customer = await stripe.customers.create({
+  // Parameters for creating a customer in Stripe
+  // Note: that we are sending the ID from the Netlify
+  // user to the Stripe customer as metadata
+  //
+  // When Stripe calls back, we can use the Netlify user ID
+  // to load up the object and update it
+  //
+  // This little trick negates the need for a database
+  const createCustomerParams: Stripe.CustomerCreateParams = {
     name: user.user_metadata.full_name,
     email: user.email,
     metadata: {
       netlifyUserId: user.id
     }
-  });
+  };
 
-  // This is the default state of the user's metadata
-  // which will contain the Stripe Id and a free role
-  const responseBody = {
+  // If all went well then we will have a Stripe customer
+  // we should hang on to the ID for later
+  // 
+  // This method is referred to as the two way sync where each party
+  // a fact about each other
+  const customer: Stripe.Customer = await stripe.customers.create(
+    createCustomerParams
+  );
+
+  const attributesToUpdate: Object = {
     app_metadata: {
       roles: ['free'],
       stripeId: customer.id,
     },
+  }
+
+  // Construct a response that Netlify will understand
+  // this should update the app_metadata
+  const response: HandlerResponse = {
+    statusCode: 200,
+    body: JSON.stringify(attributesToUpdate),
   };
 
-  // On success, return the Stripe customer ID
-  // to be stored in the app_metadata
-  return {
-    statusCode: 200,
-    body: JSON.stringify(responseBody),
-  };
+  return response;
 
 };
+
+export { handler };

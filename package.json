@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@markdoc/next.js": "^0.2.1",
+    "@netlify/functions": "^1.6.0",
     "autoprefixer": "^10.4.13",
     "netlify-identity-widget": "^1.9.2",
     "next": "^13.4.4",
