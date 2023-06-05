@@ -20,9 +20,18 @@ import type {
  */
 const handler: Handler = async function (
   event: HandlerEvent,
+  context: HandlerContext
 ) {
+  const { identity, user } = context.clientContext;
 
-  const user = JSON.parse(event.body).user;
+  console.log(identity, user);
+
+  const r: HandlerResponse = {
+    statusCode: 200,
+  };
+
+  return r;
+
 
   // Parameters for creating a customer in Stripe
   // Note: that we are sending the ID from the Netlify
