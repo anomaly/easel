@@ -4,7 +4,6 @@ import Stripe from 'stripe';
 import type {
   Handler,
   HandlerEvent,
-  HandlerContext,
   HandlerResponse,
 } from "@netlify/functions";
 
@@ -15,23 +14,34 @@ import type {
  * Stripe customer ID and Stripe has the Netlify user Id, this will
  * enable us to fetch the Netlify user when responding to webhooks
  * 
+ * {
+ * 	"event": "signup",
+ * 	"instance_id": "924bc74c-",
+ * 	"user": {
+ * 		"id": "e3665c94-",
+ * 		"aud": "",
+ * 		"role": "",
+ * 		"email": "devraj@gmail.com",
+ * 		"confirmation_sent_at": "2023-06-05T02:18:44Z",
+ * 		"app_metadata": {
+ * 			"provider": "email"
+ * 		},
+ * 		"user_metadata": {
+ * 			"full_name": "Dev M"
+ * 		},
+ * 		"created_at": "2023-06-05T02:18:44Z",
+ * 		"updated_at": "2023-06-05T02:18:44Z"
+ * 	}
+ * }
+ * 
  * @param {object} event 
  * @returns {object}
  */
 const handler: Handler = async function (
   event: HandlerEvent,
-  context: HandlerContext
 ) {
-  const { identity, user } = context.clientContext;
 
-  console.log(identity, user, event);
-
-  const r: HandlerResponse = {
-    statusCode: 200,
-  };
-
-  return r;
-
+  const user = JSON.parse(event.body).user;
 
   // Parameters for creating a customer in Stripe
   // Note: that we are sending the ID from the Netlify
@@ -42,7 +52,7 @@ const handler: Handler = async function (
   //
   // This little trick negates the need for a database
   const createCustomerParams: Stripe.CustomerCreateParams = {
-    name: user.metadata.full_name,
+    name: user.user_metadata.full_name,
     email: user.email,
     metadata: {
       netlifyUserId: user.id
