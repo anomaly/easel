@@ -24,7 +24,7 @@ const handler: Handler = async function (
 ) {
   const { identity, user } = context.clientContext;
 
-  console.log(identity, user);
+  console.log(identity, user, event);
 
   const r: HandlerResponse = {
     statusCode: 200,
