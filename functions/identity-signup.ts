@@ -69,4 +69,4 @@ const handler: Handler = async function (
 
 };
 
-export default handler;
+export default { handler };
