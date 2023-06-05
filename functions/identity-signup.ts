@@ -1,5 +1,5 @@
-import stripe from './utils/stripe'
 import Stripe from 'stripe';
+import stripe from './utils/stripe'
 
 import type {
   Handler,
