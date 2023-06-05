@@ -11,10 +11,10 @@ exports.handler = async (_event, context) => {
 
     // TODO: error handling, Stripe won't allow us to create init is complete
 
-    const responseBody = { 
-        url: link.url 
+    const responseBody = {
+        url: link.url
     };
-    
+
     return {
         statusCode: 200,
         body: JSON.stringify(responseBody),

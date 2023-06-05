@@ -68,12 +68,31 @@ const handler: Handler = async function (
     createCustomerParams
   );
 
+  // Subscribe this user to the default free plan, this is read
+  // from the environment variable STRIPE_DEFAULT_PRICE
+  const subscriptionCreateParams: Stripe.SubscriptionCreateParams = {
+    customer: customer.id,
+    items: [
+      {
+        price: process.env.STRIPE_DEFAULT_PRICE,
+      }
+    ]
+  };
+
+  // Create a subscription for the customer
+  const subscription: Stripe.Subscription = await stripe.subscriptions.create(
+    subscriptionCreateParams
+  );
+
+  // Create an object that will be set as the app_metadata
+  // amongst other things this contains the stripeId, which will
+  // be required later to create the portal link
   const attributesToUpdate: Object = {
     ...user,
     app_metadata: {
       ...user.app_metadata,
-      roles: ['free'],
       stripeId: customer.id,
+      stripeSubscriptionId: subscription.id,
     },
   }
 
